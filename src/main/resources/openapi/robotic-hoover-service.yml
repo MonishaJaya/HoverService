@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  title: Hoover Service API
+  version: 1.0.0
+paths:
+  /hoover/service/clean:
+    get:
+      requestBody:
+        $ref: '#/components/schemas/HooverRequest'
+      responses:
+        '200':
+          description: Request received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HooverResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    HooverRequest:
+      type: object
+      properties:
+        roomSize:
+          type: array
+          items:
+            type: integer
+        coords:
+          type: array
+          items:
+            type: integer
+        patches:
+          type: array
+          items:
+            type: array
+            items:
+              type: integer
+        instructions:
+          type: string
+    HooverResponse:
+      type: object
+      properties:
+        coords:
+          type: array
+          items:
+            type: integer
+        patches:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
